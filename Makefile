@@ -1,6 +1,7 @@
 CC := clang
 
 tests/build/stringbuffertests: bin/munit.o bin/string_buffer.o bin/string_buffer_tests.o
+	mkdir -p tests/build
 	$(CC) $^ -o $@
 
 bin/munit.o: munit/munit.h munit/munit.c
