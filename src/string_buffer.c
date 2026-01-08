@@ -1,6 +1,6 @@
 /*
  * string_buffer.c
- * A tiny C library for efficiently manageing user-editable strings
+ * A tiny C library for efficiently managing user-editable strings
  * Author: Charlotte Wade
  */
 
