@@ -1,3 +1,9 @@
+/*
+ * string_buffer.c
+ * A tiny C library for efficiently manageing user-editable strings
+ * Author: Charlotte Wade
+ */
+
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
