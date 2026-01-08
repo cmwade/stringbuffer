@@ -11,7 +11,7 @@ Stringbuffer comes with a test suite (built with `munit`) and an interactive dem
 
 ### I love it! How can I get it?
 
-Prototypes are provided in `include/string_buffer.h` and implemented in `src/string_buffer.c`. Copy these into your own project and integrate them with the build system of your choice.
+Prototypes are provided in `include/string_buffer.h` and implemented in `src/string_buffer.c`. Grab the repository with `git clone --recursive`, copy these into your own project and integrate them with the build system of your choice.
 
 ### I hate it! What do I do?
 
