@@ -33,6 +33,8 @@ void sb_insert(StringBuffer* sb, char c);
 void sb_insert_string(StringBuffer* sb, char* str);
 void sb_backspace(StringBuffer* sb);
 void sb_del(StringBuffer* sb);
+size_t sb_len(StringBuffer* sb);
+char* sb_peek(StringBuffer* sb, size_t index);
 void sb_foreach(StringBuffer* sb, void (*callback)(char c));
 
 #define SB_RIGHT 'r'
