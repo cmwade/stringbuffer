@@ -128,11 +128,11 @@ char* sb_peek(StringBuffer* sb, size_t index) {
     return sb->insert + index;
   } else if (sb->inedit) {
     if (index < sb->cursor-sb->backspace) {
-      return sb->buffer[index];
-    } else if (index>=sb->cursor-sb->backspace && index<sb->cursor-sb->backspace+sb->ilen) {
-      return sb->insert[index-sb->cursor-sb->backspace];
+      return sb->buffer + index;
+    } else if (index<sb->cursor-sb->backspace+sb->ilen) {
+      return sb->insert + index-sb->cursor+sb->backspace;
     } else {
-      return sb->buffer[index-sb->backspace-sb->del-sb->ilen];
+      return sb->buffer + index+sb->backspace+sb->del-sb->ilen;
     }
   } else {
     return sb->buffer + index;
@@ -142,7 +142,7 @@ char* sb_peek(StringBuffer* sb, size_t index) {
 // Call a callback for each character of sb, in order
 // Works even in the middle of an edit
 void sb_foreach(StringBuffer* sb, void (*callback)(char c)) {
-  for (size_t i=0; i<sb_len(sb), i++) {
+  for (size_t i=0; i<sb_len(sb); i++) {
     callback(*(sb_peek(sb,i)));
   }
 }

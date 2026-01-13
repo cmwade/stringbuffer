@@ -332,6 +332,7 @@ int main(int argc, char* const* argv) {
       sb_foreach(&sb,putchar_cb);
       putchar('\n');
       printf("------------------------------\n");
+      printf("Length: %lu\n",sb_len(&sb));
       if (sb.inedit && sb.ilen > 0) printf("Insert: %s\n",sb.insert);
       printf("Buffer: \n%s\n",sb.buffer);
       for (int i=0; i<=sb.cursor; i++) {

@@ -117,8 +117,16 @@ It is not neccessary to use `sb_open_edit` or `sb_close_edit` while using this f
 
 #### Displaying
 
+##### `size_t sb_len(StringBuffer* sb);`
+
+Gets the length of the current string, taking into account the current edit but not resolving it. Useful for bounds-checking `sb_peek`.
+
+##### `char* sb_peek(StringBuffer* sb, size_t index);`
+
+Returns a pointer to the character in the string at position `index`, taking into account the current edit but not resolving it. **Note** that the characters in front or behind of this pointer are not guaranteed; the actual next character in the string may be anywhere in the main or insert buffers depending on the state of the current edit. **Also note** that `sb_peek` will return `NULL` if the index provided is out-of-bounds, though it guarantees a valid pointer if `index>=0 && index<sb_len(sb)`.
+
 ##### `void sb_foreach(StringBuffer* sb, void (*callback)(char c));`
 
-Runs the provided callback for each character in the string in order, taking into account the current edit but *not resolving it*. Useful for displaying or otherwise accessing the contents of the string without needing to care whether an edit is in progress.
+Runs the provided callback for each character in the string in order, taking into account the current edit but not resolving it. Useful for displaying or otherwise accessing the contents of the string without needing to care whether an edit is in progress.
 
 
