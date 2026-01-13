@@ -113,28 +113,37 @@ void sb_del(StringBuffer* sb) {
 
 // access
 
+size_t sb_len(StringBuffer* sb) {
+  if (sb->inedit) {
+    return sb->blen+sb->ilen-sb->del-sb->backspace;
+  } else {
+    return sb->blen;
+  }
+}
+
+char* sb_peek(StringBuffer* sb, size_t index) {
+  if (index < 0 || index >= sb_len(sb)) {
+    return NULL;
+  } else if (sb->buffer[0] == '\0') {
+    return sb->insert + index;
+  } else if (sb->inedit) {
+    if (index < sb->cursor-sb->backspace) {
+      return sb->buffer + index;
+    } else if (index<sb->cursor-sb->backspace+sb->ilen) {
+      return sb->insert + index-sb->cursor+sb->backspace;
+    } else {
+      return sb->buffer + index+sb->backspace+sb->del-sb->ilen;
+    }
+  } else {
+    return sb->buffer + index;
+  }
+}
+
 // Call a callback for each character of sb, in order
 // Works even in the middle of an edit
 void sb_foreach(StringBuffer* sb, void (*callback)(char c)) {
-  if (!(sb->inedit)) {
-    for (size_t i=0; i<sb->blen; i++) {
-      callback(sb->buffer[i]);
-    }
-  } else if (sb->buffer[0] == '\0') {
-    for (size_t j=0; j<sb->ilen; j++) {
-      callback(sb->insert[j]);
-    }
-  } else {
-    for (size_t i=0; i<sb->blen; i++) {
-      if (i==sb->cursor-sb->backspace) {
-        for (int j=0; j<sb->ilen; j++) {
-          callback(sb->insert[j]);
-        }
-        i = sb->cursor+sb->del-1; // -1 because i will be incremented
-      } else {
-        callback(sb->buffer[i]);
-      }
-    }
+  for (size_t i=0; i<sb_len(sb); i++) {
+    callback(*(sb_peek(sb,i)));
   }
 }
 
