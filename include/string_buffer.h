@@ -8,6 +8,11 @@
 
 #include <stdbool.h>
 
+// Ensure it compiles well with c++
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct StringBuffer {
   char* buffer;  // buffer outside of current edit
   size_t blen;   // length of string currently in buffer
@@ -45,3 +50,6 @@ void sb_foreach(StringBuffer* sb, void (*callback)(char c));
 #define SB_BKSP 'b'
 void sb_interact(StringBuffer* sb, char command, int arg);
 
+#ifdef __cplusplus
+}
+#endif
